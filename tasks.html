@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>夢角番茄鐘｜任務</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module">
+    import {mountNav, mountThemePicker} from './common.js';
+    window.addEventListener('DOMContentLoaded', ()=>{
+      mountNav('tasks.html');
+      mountThemePicker(document.querySelector('select.theme'));
+    });
+  </script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><h1>夢角番茄鐘</h1></div>
+  <div class="nav"></div>
+  <div class="theme-wrap">
+    <label style="font-size:12px;color:var(--muted)">主題</label>
+    <select class="theme"></select>
+  </div>
+</header>
+
+<div class="container">
+  <section class="card">
+    <h2 class="section-title">今日任務</h2>
+    <div class="add-task">
+      <input id="newTaskInput" type="text" placeholder="輸入任務後按 Enter" />
+      <button id="addTaskBtn">＋</button>
+    </div>
+    <ul id="taskList" class="tasks"></ul>
+  </section>
+</div>
+
+<footer class="footer">拖曳左側把手可調整順序</footer>
+<script type="module" src="tasks.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>夢角番茄鐘｜夢角設定</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module">
+    import {mountNav, mountThemePicker} from './common.js';
+    window.addEventListener('DOMContentLoaded', ()=>{
+      mountNav('role.html');
+      mountThemePicker(document.querySelector('select.theme'));
+    });
+  </script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><h1>夢角番茄鐘</h1></div>
+  <div class="nav"></div>
+  <div class="theme-wrap">
+    <label style="font-size:12px;color:var(--muted)">主題</label>
+    <select class="theme"></select>
+  </div>
+</header>
+
+<div class="container">
+  <section class="card">
+    <h2 class="section-title">夢角設定</h2>
+    <div class="row grid-2">
+      <div>
+        <label>夢角名稱<input id="roleName" type="text" placeholder="你的夢角名字"/></label>
+        <label>他/她對你的稱呼<input id="youNickname" type="text" placeholder="官人/船長/學長姐…"/></label>
+        <details open>
+          <summary><b>台詞庫（完全自訂）</b></summary>
+          <p class="muted">依「觸發時機」新增句子；支援變數：{you} / {task} / {role}</p>
+          <div id="speechEditor" class="speech-editor"></div>
+        </details>
+      </div>
+      <div>
+        <div class="avatar-wrap" style="margin-bottom:8px"><img id="avatarPreview" class="avatar" alt="預覽"/></div>
+        <input id="avatarFile" type="file" accept="image/*" />
+        <div style="margin-top:10px"><button id="saveRole">儲存夢角</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">資料儲存在 localStorage（僅此裝置）。</footer>
+<script type="module" src="role.js"></script>
+</body>
+</html>

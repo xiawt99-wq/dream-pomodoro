@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>夢角番茄鐘（本地自訂版）</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>夢角番茄鐘（本地）</h1>
+  <div class="stats">
+    <span id="todayPomodoros">0</span> 🍅
+    <span id="todayFocus">0m</span> ⏱️
+  </div>
+</header>
+
+<main class="container">
+  <!-- 計時 -->
+  <section class="card timer-card">
+    <div class="tabs">
+      <button class="tab active" data-mode="focus">番茄鐘</button>
+      <button class="tab" data-mode="break">休息</button>
+    </div>
+
+    <div class="role">
+      <div class="avatar-wrap">
+        <img id="roleAvatar" class="avatar" alt="角色頭像" />
+      </div>
+      <div class="speech" id="roleSpeech">（這裡會顯示你自訂的台詞）</div>
+    </div>
+
+    <div class="timer">
+      <div id="timeText" class="time">25:00</div>
+      <div class="controls">
+        <button id="btnStart">開始</button>
+        <button id="btnPause">暫停</button>
+        <button id="btnReset">重置</button>
+      </div>
+    </div>
+
+    <div class="settings">
+      <label>專注(分)
+        <input id="focusMinutes" type="number" min="1" max="180" />
+      </label>
+      <label>休息(分)
+        <input id="breakMinutes" type="number" min="1" max="60" />
+      </label>
+      <label class="current-task">
+        當前任務
+        <select id="currentTask"></select>
+      </label>
+    </div>
+  </section>
+
+  <!-- 任務 -->
+  <section class="card tasks-card">
+    <div class="card-title">今日任務</div>
+    <div class="add-task">
+      <input id="newTaskInput" type="text" placeholder="輸入任務後按 Enter" />
+      <button id="addTaskBtn">＋</button>
+    </div>
+    <ul id="taskList" class="tasks"></ul>
+  </section>
+
+  <!-- 夢角設定（含個性化） -->
+  <section class="card role-card">
+    <div class="card-title">夢角設定（名稱 / 稱呼 / 頭像 / 台詞）</div>
+    <div class="role-form">
+      <div>
+        <label>夢角名稱
+          <input id="roleName" type="text" placeholder="你的夢角名字" />
+        </label>
+        <label>他/她對你的稱呼
+          <input id="youNickname" type="text" placeholder="官人/船長/學長姐…" />
+        </label>
+        <details open>
+          <summary><b>台詞庫（完全自訂）</b></summary>
+          <p class="muted">依「觸發時機」新增句子；計時中會隨機抽一句。支援變數：{you} / {task} / {role}</p>
+          <div id="speechEditor" class="speech-editor"></div>
+        </details>
+      </div>
+      <div class="avatar-uploader">
+        <img id="avatarPreview" class="avatar" alt="預覽" />
+        <input id="avatarFile" type="file" accept="image/*" />
+        <button id="saveRole">儲存夢角</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主題 -->
+  <section class="card">
+    <div class="card-title">聊天室主題設定</div>
+    <div id="themePreview" class="theme-preview">
+      <div class="bubble bubble-l">（開心地笑）<br/>你好～！</div>
+      <div class="bubble bubble-r">（熱情地向您問好）<br/>哦！好久不見！！</div>
+    </div>
+    <div id="themes" class="themes"></div>
+  </section>
+</main>
+
+<footer class="footer">本地版｜資料儲存在你的瀏覽器（localStorage）</footer>
+
+<audio id="soundStart" src="sounds/start.mp3" preload="auto"></audio>
+<audio id="soundEnd" src="sounds/end.mp3" preload="auto"></audio>
+
+<script src="app.js"></script>
+</body>
+</html>

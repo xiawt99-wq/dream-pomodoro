@@ -24,32 +24,24 @@ const load = (k, fb) => { try { return JSON.parse(localStorage.getItem(k)) ?? fb
 const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
 const uuid = () => Math.random().toString(36).slice(2,9);
 
-/* ====== Themes ====== */
+/* ====== 主題（整站換色） ====== */
 const THEME_KEY = 'pomodoro_theme';
 const THEMES = {
   base: { // 粉白
-    '--bg':'#111214','--card':'#181823','--text':'#f7f7fb','--muted':'#bfc1d3',
-    '--primary':'#f7a9c6','--primary2':'#ffa6e7','--accent':'#ffd3e6',
-    '--chat-bg1':'#16171c','--chat-bg2':'#101013',
-    '--bubble-bg':'#4a4756','--bubble-text':'#f0eff4'
+    '--bg':'#2a2328','--bg2':'#1b161a','--card':'#2a2530','--border':'#3a3340',
+    '--text':'#fff4f8','--muted':'#e4c9d6','--primary':'#f7a9c6','--primary2':'#ffa6e7','--accent':'#ffd3e6'
   },
-  black: { // 深灰黑
-    '--bg':'#0d0e11','--card':'#171922','--text':'#f3f4f9','--muted':'#a7a7bb',
-    '--primary':'#646b75','--primary2':'#8b9099','--accent':'#3d3f46',
-    '--chat-bg1':'#13141a','--chat-bg2':'#0e0f13',
-    '--bubble-bg':'#3b3f48','--bubble-text':'#e6e7eb'
+  black: { // 深灰黑（預設）
+    '--bg':'#0d0e11','--bg2':'#0a0a0d','--card':'#171922','--border':'#2a2a3a',
+    '--text':'#f3f4f9','--muted':'#a7a7bb','--primary':'#646b75','--primary2':'#8b9099','--accent':'#3d3f46'
   },
   brown: { // 咖啡棕
-    '--bg':'#121011','--card':'#1c1718','--text':'#f5f2ef','--muted':'#cbbfb7',
-    '--primary':'#8a6a5a','--primary2':'#b08974','--accent':'#d9c2b4',
-    '--chat-bg1':'#1a1616','--chat-bg2':'#120f0f',
-    '--bubble-bg':'#5a4a44','--bubble-text':'#f2ece8'
+    '--bg':'#1a1514','--bg2':'#130f0e','--card':'#231a1a','--border':'#3b2b2a',
+    '--text':'#f5f2ef','--muted':'#cbbfb7','--primary':'#8a6a5a','--primary2':'#b08974','--accent':'#d9c2b4'
   },
   green: { // 薄荷綠
-    '--bg':'#0f1211','--card':'#17201b','--text':'#eef8f2','--muted':'#b7d0c2',
-    '--primary':'#7ed9a8','--primary2':'#b0f0cf','--accent':'#c7f5df',
-    '--chat-bg1':'#13201a','--chat-bg2':'#0e1512',
-    '--bubble-bg':'#3b5548','--bubble-text':'#eaf6f0'
+    '--bg':'#0f1513','--bg2':'#0c110f','--card':'#16221c','--border':'#254036',
+    '--text':'#eef8f2','--muted':'#b7d0c2','--primary':'#7ed9a8','--primary2':'#b0f0cf','--accent':'#c7f5df'
   }
 };
 function applyTheme(name){
@@ -66,7 +58,8 @@ function renderThemePicker(){
   items.forEach(([key,label])=>{
     const btn = document.createElement('button');
     btn.className = 'theme-btn'; btn.dataset.key = key; btn.setAttribute('aria-label',label);
-    const t = THEMES[key], blocks=[t['--primary'],t['--bubble-bg'],t['--accent'],t['--card']];
+    // 四象限示意色塊（不顯示任何圖片/文字）
+    const t = THEMES[key], blocks=[t['--primary'],t['--accent'],t['--card'],t['--bg']];
     blocks.forEach(c=>{ const s=document.createElement('span'); s.style.background=c; btn.appendChild(s); });
     const box = document.createElement('div'); box.className='theme-wrap';
     const lab = document.createElement('div'); lab.className='theme-label'; lab.textContent=label;
@@ -133,7 +126,7 @@ function onTimerComplete(){
   }else{ say('onBreakEnd'); setMode('focus'); }
 }
 
-/* ===== 台詞機制（由使用者維護） ===== */
+/* ===== 台詞（全自訂） ===== */
 const TRIGGERS = [
   ['startPrompt','切到番茄鐘時'],
   ['breakPrompt','切到休息時'],
